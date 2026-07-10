@@ -1,0 +1,9 @@
+keys,es,en,pt_BR
+net.status.connecting,Conectando…,Connecting…,Conectando…
+net.status.matchmaking,Buscando sala…,Finding room…,Procurando sala…
+net.status.connected,Conectado,Connected,Conectado
+net.status.ping,Ping recibido,Ping received,Ping recebido
+net.error.http,Error de conexión HTTP ({code}),HTTP connection error ({code}),Erro de conexão HTTP ({code})
+net.error.ws,Error de WebSocket,WebSocket error,Erro de WebSocket
+net.error.closed,Conexión cerrada ({code}),Connection closed ({code}),Conexão fechada ({code})
+net.error.version,Versión de protocolo incompatible,Incompatible protocol version,Versão de protocolo incompatível
