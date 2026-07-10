@@ -1,0 +1,17 @@
+# Node
+node_modules/
+dist/
+*.log
+
+# Env
+.env
+.env.*
+
+# Godot
+.godot/
+*.translation
+client/exports/
+client/android/
+
+# OS
+.DS_Store
