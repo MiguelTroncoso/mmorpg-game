@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "description": "Opciones excellent. Editable en caliente. Ver docs/excellent.md.",
+
+  "dropChain": {
+    "equipmentDropChance": 0.08,
+    "excellentChance": 0.04,
+    "_comment": "excellentChance se multiplica por mob.tierMultiplier (jefes > normales)"
+  },
+
+  "optionCountDistribution": {
+    "1": 0.640,
+    "2": 0.230,
+    "3": 0.090,
+    "4": 0.030,
+    "5": 0.008,
+    "6": 0.002
+  },
+
+  "pools": {
+    "weapon": [
+      { "id": 1, "nameKey": "exc.weapon.damage_pct",      "effect": "damage_percent",        "value": 0.02 },
+      { "id": 2, "nameKey": "exc.weapon.exc_hit_rate",     "effect": "excellent_hit_rate",    "value": 0.10 },
+      { "id": 3, "nameKey": "exc.weapon.attack_speed",     "effect": "attack_speed_flat",     "value": 7 },
+      { "id": 4, "nameKey": "exc.weapon.damage_per_level", "effect": "damage_level_divisor",  "value": 20 },
+      { "id": 5, "nameKey": "exc.weapon.lifesteal_kill",   "effect": "hp_on_kill_divisor",    "value": 8 },
+      { "id": 6, "nameKey": "exc.weapon.manasteal_kill",   "effect": "mp_on_kill_divisor",    "value": 8 }
+    ],
+    "armor": [
+      { "id": 1, "nameKey": "exc.armor.max_hp",         "effect": "max_hp_percent",       "value": 0.04 },
+      { "id": 2, "nameKey": "exc.armor.max_mp",         "effect": "max_mp_percent",       "value": 0.04 },
+      { "id": 3, "nameKey": "exc.armor.dmg_reduction",  "effect": "damage_reduction_pct", "value": 0.04 },
+      { "id": 4, "nameKey": "exc.armor.defense_rate",   "effect": "defense_rate_pct",     "value": 0.10 },
+      { "id": 5, "nameKey": "exc.armor.reflect",        "effect": "reflect_damage_pct",   "value": 0.05 },
+      { "id": 6, "nameKey": "exc.armor.zen_bonus",      "effect": "zen_on_kill_pct",      "value": 0.40 }
+    ],
+    "shield": [
+      { "id": 1, "nameKey": "exc.shield.max_hp",         "effect": "max_hp_percent",        "value": 0.04 },
+      { "id": 2, "nameKey": "exc.shield.block_rate",     "effect": "block_rate_pct",        "value": 0.10 },
+      { "id": 3, "nameKey": "exc.shield.dmg_reduction",  "effect": "damage_reduction_pct",  "value": 0.04 },
+      { "id": 4, "nameKey": "exc.shield.def_per_level",  "effect": "defense_level_divisor", "value": 20 },
+      { "id": 5, "nameKey": "exc.shield.reflect",        "effect": "reflect_damage_pct",    "value": 0.05 },
+      { "id": 6, "nameKey": "exc.shield.hp_on_block",    "effect": "hp_on_block_divisor",   "value": 12 }
+    ]
+  },
+
+  "setBonuses": [
+    { "pieces": 2, "nameKey": "exc.set.2", "effect": "defense_rate_pct",   "value": 0.05 },
+    { "pieces": 3, "nameKey": "exc.set.3", "effect": "defense_flat",       "value": 15 },
+    { "pieces": 4, "nameKey": "exc.set.4", "effect": "damage_percent",     "value": 0.05 },
+    { "pieces": 5, "nameKey": "exc.set.5", "effect": "max_hp_percent",     "value": 0.05 },
+    { "pieces": 6, "nameKey": "exc.set.6", "effect": "excellent_hit_rate", "value": 0.10 },
+    { "pieces": 7, "nameKey": "exc.set.7", "effect": "all_stats_percent",  "value": 0.07 }
+  ],
+
+  "reroll": {
+    "itemId": "readjustment_stone",
+    "nameKey": "item.readjustment_stone",
+    "mode": "single_option",
+    "playerChoosesWhichOption": true,
+    "canChangeOptionCount": false,
+    "_comment": "canChangeOptionCount DEBE ser false. Ver docs/excellent.md seccion 6."
+  },
+
+  "presentation": {
+    "nameColorByOptionCount": {
+      "1": "#8FB8DE",
+      "2": "#6FCF97",
+      "3": "#F2C94C",
+      "4": "#F2994A",
+      "5": "#EB5757",
+      "6": "#BB6BD9"
+    },
+    "groundParticlesFromOptionCount": 4,
+    "globalAnnounceFromOptionCount": 5
+  },
+
+  "invariants": {
+    "maxPowerContributionAt6Options": 0.18,
+    "_comment": "Un exc 6-opts nunca debe superar el valor de 3 niveles de upgrade. Auditar en CI."
+  },
+
+  "limits": {
+    "auditLogFromOptionCount": 4
+  }
+}

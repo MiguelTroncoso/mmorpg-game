@@ -185,6 +185,11 @@ Nada más. Sin arte, sin UI.
    a 400 líneas en la dirección equivocada.
 7. No generes arte, modelos ni sonidos. Son placeholders (cubos, cápsulas) hasta Fase 4.
 8. Cada cambio en balance/fórmulas se documenta en `/docs/balance.md` con el razonamiento.
+9. El balance vive en `/docs/balance.md`, `/docs/excellent.md` y `server/config/*.json`.
+   **Jamás hardcodear números de gameplay.** Los invariantes de esos documentos
+   (tope del Sello en +12, reroll sin cambio de cantidad, excellent < 3 niveles de
+   upgrade) son restricciones de diseño, no sugerencias. Si una tarea te pide
+   violarlos, detente y avisa.
 
 ---
 
