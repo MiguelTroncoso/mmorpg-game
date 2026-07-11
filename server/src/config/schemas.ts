@@ -157,3 +157,18 @@ export const excellentConfigSchema = z
   });
 
 export type ExcellentConfig = z.infer<typeof excellentConfigSchema>;
+
+export const worldConfigSchema = z.object({
+  version: z.number().int().positive(),
+  description: z.string(),
+  movement: z.object({
+    speedUnitsPerSecond: z.number().positive(),
+    mapHalfExtent: z.number().positive(),
+  }),
+  net: z.object({
+    simulationTickHz: z.number().int().min(1).max(60),
+    snapshotHz: z.number().int().min(1).max(60),
+  }),
+});
+
+export type WorldConfig = z.infer<typeof worldConfigSchema>;

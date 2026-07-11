@@ -4,13 +4,16 @@ import { z } from "zod";
 import {
   excellentConfigSchema,
   upgradeConfigSchema,
+  worldConfigSchema,
   type ExcellentConfig,
   type UpgradeConfig,
+  type WorldConfig,
 } from "./schemas.js";
 
 export interface GameConfig {
   upgrade: UpgradeConfig;
   excellent: ExcellentConfig;
+  world: WorldConfig;
 }
 
 /**
@@ -22,6 +25,7 @@ export function loadGameConfig(configDir = path.join(process.cwd(), "config")): 
   return {
     upgrade: loadOne(configDir, "upgrade.json", upgradeConfigSchema),
     excellent: loadOne(configDir, "excellent.json", excellentConfigSchema),
+    world: loadOne(configDir, "world.json", worldConfigSchema),
   };
 }
 
