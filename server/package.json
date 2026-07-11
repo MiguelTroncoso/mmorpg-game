@@ -11,7 +11,7 @@
     "build": "tsc",
     "start": "node dist/server/src/index.js",
     "check": "eslint . && tsc --noEmit",
-    "test": "node --import tsx --test tests/connection.test.ts",
+    "test": "node --import tsx --test tests/movement.test.ts tests/connection.test.ts",
     "format": "prettier --write ."
   },
   "dependencies": {

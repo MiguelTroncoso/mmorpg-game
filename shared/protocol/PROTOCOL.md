@@ -33,12 +33,12 @@ ws://HOST:2567/{processId}/{roomId}?sessionId={sessionId}
 
 Mensajes binarios. El primer byte de cada frame es el código de protocolo Colyseus:
 
-| Código | Nombre | Dirección |
-|---|---|---|
-| 10 | JOIN_ROOM | servidor → cliente, luego cliente → servidor (confirmación) |
-| 11 | ERROR | servidor → cliente |
-| 12 | LEAVE_ROOM | ambas |
-| 13 | ROOM_DATA | ambas — **aquí viven nuestros mensajes** |
+| Código | Nombre     | Dirección                                                   |
+| ------ | ---------- | ----------------------------------------------------------- |
+| 10     | JOIN_ROOM  | servidor → cliente, luego cliente → servidor (confirmación) |
+| 11     | ERROR      | servidor → cliente                                          |
+| 12     | LEAVE_ROOM | ambas                                                       |
+| 13     | ROOM_DATA  | ambas — **aquí viven nuestros mensajes**                    |
 
 ### Handshake de join
 
@@ -73,12 +73,27 @@ Hallazgos verificados por el test (importan al decoder/encoder del cliente):
 
 ## 3. Mensajes de aplicación (v1)
 
-Fuente de verdad de formas: `shared/protocol/messages.ts`.
+Fuente de verdad de formas: `shared/protocol/messages.ts`. Room: `game`.
 
-| Tipo | Dirección | Payload |
-|---|---|---|
-| `ping` | servidor → cliente (al entrar) | `{ v: uint, t: uint64 epoch ms }` |
-| `pong` | cliente → servidor | `{ t }` (el mismo `t`, intacto) |
+`PlayerTuple` = `[sessionId: str, x: float, z: float]`.
 
-Regla: si `ping.v` ≠ versión del cliente, el cliente muestra error de versión y
-desconecta. Nunca "intenta igual".
+| Tipo      | Dirección                             | Payload                                         |
+| --------- | ------------------------------------- | ----------------------------------------------- |
+| `welcome` | servidor → cliente (al entrar)        | `{ v, id, players: PlayerTuple[], snapshotHz }` |
+| `ping`    | servidor → cliente (al entrar)        | `{ v: uint, t: epoch ms }`                      |
+| `pong`    | cliente → servidor                    | `{ t }` (el mismo `t`, intacto)                 |
+| `enter`   | servidor → todos (menos el que entra) | `{ p: PlayerTuple }`                            |
+| `exit`    | servidor → todos                      | `{ id }`                                        |
+| `move`    | cliente → servidor                    | `{ x, z }` — **intención** de destino           |
+| `state`   | servidor → todos, a `snapshotHz`      | `{ p: PlayerTuple[] }`                          |
+
+Reglas:
+
+- Si `welcome.v` o `ping.v` ≠ versión del cliente, el cliente muestra error de
+  versión y desconecta. Nunca "intenta igual".
+- El cliente JAMÁS envía posiciones. Envía `move` (intención); el servidor
+  encierra el destino en los límites del mapa y simula el avance con la
+  velocidad de `server/config/world.json`. La posición real siempre llega por
+  `state`/`welcome`/`enter`.
+- El cliente renderiza interpolando entre snapshots con un delay de
+  `2 / snapshotHz` segundos. Sin extrapolación ni predicción en Fase 0.

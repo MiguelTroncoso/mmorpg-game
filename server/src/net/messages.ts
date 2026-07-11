@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { PongPayload } from "../../../shared/protocol/messages.js";
+import type { MovePayload, PongPayload } from "../../../shared/protocol/messages.js";
 
 /**
  * Validación zod de TODO mensaje entrante del cliente. El cliente es hostil por
@@ -12,7 +12,18 @@ export const pongSchema = z.object({
   t: z.number().int().nonnegative(),
 });
 
-// La forma validada debe coincidir con el contrato de /shared/protocol.
+// Intención de movimiento: coordenadas finitas. Los límites del mapa NO se
+// validan aquí — el servidor las encierra en bounds (un destino fuera del mapa
+// es input legal de un tap en el borde, no un ataque).
+export const moveSchema = z.object({
+  x: z.number().finite(),
+  z: z.number().finite(),
+});
+
+// Las formas validadas deben coincidir con el contrato de /shared/protocol.
 type _PongMatches = z.infer<typeof pongSchema> extends PongPayload ? true : never;
 const _pongMatches: _PongMatches = true;
 void _pongMatches;
+type _MoveMatches = z.infer<typeof moveSchema> extends MovePayload ? true : never;
+const _moveMatches: _MoveMatches = true;
+void _moveMatches;
