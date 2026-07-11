@@ -7,3 +7,4 @@ net.error.http,Error de conexión HTTP ({code}),HTTP connection error ({code}),E
 net.error.ws,Error de WebSocket,WebSocket error,Erro de WebSocket
 net.error.closed,Conexión cerrada ({code}),Connection closed ({code}),Conexão fechada ({code})
 net.error.version,Versión de protocolo incompatible,Incompatible protocol version,Versão de protocolo incompatível
+ui.tap_to_move,Toca el suelo para moverte,Tap the ground to move,Toque no chão para mover

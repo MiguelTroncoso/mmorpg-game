@@ -23,7 +23,7 @@ var _ws_active := false
 var _joined := false
 
 
-func connect_to_server(host: String, room_name: String = "lobby") -> void:
+func connect_to_server(host: String, room_name: String = "game") -> void:
 	_host = host
 	status_changed.emit(Status.MATCHMAKING, {})
 	var http := HTTPRequest.new()

@@ -18,8 +18,13 @@ En un Android físico, editar `server_host` en el nodo raíz de `main.tscn`
   `shared/protocol/PROTOCOL.md`). Sin dependencias externas.
 - `scripts/net_client.gd` — matchmaking HTTP + WebSocket crudo + frames
   ROOM_DATA. Solo transporte, cero lógica de juego.
-- `scripts/main.gd` + `scenes/main.tscn` — muestra connected/error y responde
-  al ping del servidor.
+- `scripts/main.gd` + `scenes/main.tscn` — mundo de Fase 0: plano, cápsulas,
+  tap-to-move. El click envía `move` (intención); las posiciones vienen del
+  servidor en snapshots.
+- `scripts/remote_player.gd` — cápsula interpolada entre snapshots
+  (delay 2/snapshotHz, sin extrapolación ni predicción).
+
+Guía completa de arranque (Docker, dos instancias, Android): `docs/RUN.md`.
 
 El wire format que habla este cliente está verificado byte a byte contra el
 servidor real por `server/tests/connection.test.ts`.
